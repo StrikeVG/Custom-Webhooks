@@ -25,7 +25,7 @@ if($signature != "sha256=" . hash_hmac("sha256", $webhookContent, getenv("GITHUB
     return;
 }
 
-$event = $headers["X-Github-Event"]; //"hub" is lowercase in local dev, "Hub" in prod
+$event = $headers["X-GitHub-Event"]; //"hub" is lowercase in local dev, "Hub" in prod
 if($event == NULL) {
     http_response_code(400);
     return;
