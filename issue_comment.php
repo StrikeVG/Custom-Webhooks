@@ -5,6 +5,7 @@ require_once("./discord_send.php");
 function process_issue_comment($body)
 {
     $data = json_decode($body, true);
+    $maxlength = getenv("MSG_MAXLENGTH");
     if ($data["action"] != "created") {
         http_response_code(200);
         return;
@@ -26,6 +27,8 @@ function process_issue_comment($body)
     }
 
     $message .= $sender . " requires your attention:\n".$data["comment"]["body"];
+    $message = strlen($message) > $maxlength ? substr($message, 0, $maxlength)."..." : $message;
+
 
     http_response_code(200);
 
@@ -35,7 +38,10 @@ function process_issue_comment($body)
                 [
                     "title" => "New Issue Comment - Input required on " . $data["repository"]["name"] . " #" . $data["issue"]["number"],
                     "description" => $message, "url" => $data["comment"]["html_url"],
-                    "color" => 16776960
+                    "color" => 16776960,
+                    "footer" => [
+                        "text" => strlen($message) > $maxlength ? "View full comment by clicking on the embed." : "",
+                    ]
                 ]
             ],
             "allowed_mentions" => [
