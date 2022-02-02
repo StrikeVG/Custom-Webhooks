@@ -1,6 +1,6 @@
 <?php
-require("./user_translate.php");
-require("./discord_send.php");
+require_once("./user_translate.php");
+require_once("./discord_send.php");
 
 function process_issue_comment($body)
 {
