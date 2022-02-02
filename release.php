@@ -23,7 +23,7 @@ function process_release($body) {
                 [
                     "title" => "New Release of " . $data["repository"]["name"] . " (".$data["release"]["name"].") 🎉",
                     "description" => $message,
-                    "url" => $data["release"]["url"],
+                    "url" => $data["release"]["html_url"],
                     "color" => 7405759,
                     "footer" => [
                         "text" => strlen($message) > $maxlength ? "View full changelog by clicking on the embed." : "",
