@@ -4,6 +4,6 @@ function user_translate($original) {
     if(!array_key_exists(strtolower($original), $user_translation)) {
         return $original;
     }
-    return $user_translation[$original];
+    return $user_translation[strtolower($original)];
 }
 ?>
