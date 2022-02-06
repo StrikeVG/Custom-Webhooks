@@ -11,6 +11,11 @@ function process_release($body) {
 
     $re = '/@([A-Za-z0-9-]*)/m';
 
+    // format headers for discord
+    $message = preg_replace('/^#+ (.*)$/m', "**$1**");
+    // remove release comment "generated with release config...
+    $message = preg_replace('/^<!--.*$\n\n/m', "");
+
     $message = preg_replace_callback($re, function ($hits) {
         return "<@" . user_translate($hits[1]) . ">";
     }, $data["release"]["body"], -1);
